@@ -221,7 +221,15 @@ public class DraggableCardView: UIView, UIGestureRecognizerDelegate {
     //MARK: GestureRecognizers
     @objc func panGestureRecognized(_ gestureRecognizer: UIPanGestureRecognizer) {
         dragDistance = gestureRecognizer.translation(in: self)
-        
+
+        // rubber-band up
+        let maxOffset = 0.5 * UIScreen.main.bounds.width
+        let distance = sqrt(pow(dragDistance.x, 2), pow(dragDistance.y, 2))
+        let offset = maxOffset * -log10(1 + abs(distance / maxOffset))
+        let scale = offset / distance
+        dragDistance.x *= scale
+        dragDistance.y *= scale
+
         let touchLocation = gestureRecognizer.location(in: self)
         
         switch gestureRecognizer.state {
