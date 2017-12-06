@@ -224,7 +224,7 @@ public class DraggableCardView: UIView, UIGestureRecognizerDelegate {
 
         // rubber-band up
         let maxOffset = 0.5 * UIScreen.main.bounds.width
-        let distance = sqrtf(pow(dragDistance.x, 2) + pow(dragDistance.y, 2))
+        let distance = sqrt(pow(Double(dragDistance.x), 2) + pow(Double(dragDistance.y), 2))
         let offset = maxOffset * -log10(1 + abs(distance / maxOffset))
         let scale = offset / distance
         dragDistance.x *= scale
